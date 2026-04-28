@@ -169,11 +169,12 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                         RadioButton(
                             selected = selectedOption == player,
                             onClick = { myViewModel.setSelectedOption(player) },
-                            enabled = player != "Vinicius", // Deshabilitat
+                            enabled = player != "Vinicius",
                             colors = RadioButtonDefaults.colors(
                                 selectedColor = Color.Black,
                                 unselectedColor = Color.LightGray
-                            )
+                            ),
+                            modifier = Modifier.testTag("pilotaDOr_id_$player")
                         )
                         Text(player, Modifier.padding(start = 8.dp))
                     }
@@ -184,7 +185,8 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
             Slider(
                 value = sliderValue,
                 onValueChange = { myViewModel.setSliderValue(it) },
-                valueRange = 0f..100f
+                valueRange = 0f..100f,
+                modifier = Modifier.testTag("sliderValue_id")
             )
 
             Box(modifier = Modifier.wrapContentSize()) {
@@ -202,7 +204,8 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                             onClick = {
                                 myViewModel.setSelectedItem(option)
                                 myViewModel.setExpanded(false)
-                            }
+                            },
+                            modifier = Modifier.testTag("opcion_id")
                         )
                     }
                 }
