@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -44,6 +45,7 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
     val esCarnivor by myViewModel.esCarnivor.observeAsState(true)
     val triStateStatus by myViewModel.triStateStatus.observeAsState(ToggleableState.Off)
     val selectedOption by myViewModel.selectedOption.observeAsState("Messi")
+
 
     /* TODO */
     val sliderValue by myViewModel.sliderValue.observeAsState(0f)
@@ -208,11 +210,12 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
 
             OutlinedTextField(
                 value = searchText,
-                onValueChange = { /* myViewModel.setSearchText(it) */ },
-                label = Text("Buscar..."),
-                modifier = Modifier
+                onValueChange = { myViewModel.setSearchText(it) },
+                label = { Text("Buscar...")},
+                modifier = Modifier.testTag("searchText_id")
             )
-            Button(onClick = { /* myViewModel.performSearch() */ }) {
+            Button(onClick = { myViewModel.performSearch() },
+                modifier = Modifier.testTag("searchButton_id")) {
                 Text("Buscar")
             }
 
@@ -224,10 +227,10 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
             }
 
             Button(
-                onClick = { /* myViewModel.toggle() */ },
+                onClick = { myViewModel.toggle() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (toggleState) Color.Green else Color.Red
-                )
+                ), modifier = Modifier.testTag("activateButton_id")
             ) {
                 Text(if (toggleState) "Activat" else "Desactivat")
             }
